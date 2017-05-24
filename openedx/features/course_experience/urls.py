@@ -7,8 +7,12 @@ from django.conf.urls import url
 from views.course_home import CourseHomeFragmentView, CourseHomeView
 from views.course_outline import CourseOutlineFragmentView
 from views.course_updates import CourseUpdatesFragmentView, CourseUpdatesView
+<<<<<<< HEAD
 from views.welcome_message import WelcomeMessageFragmentView
 from views.course_sock import CourseSockFragmentView
+=======
+from views.welcome_message import WelcomeMessageFragmentView, dismiss_welcome_message
+>>>>>>> Add a dismiss button to welcome message.
 
 urlpatterns = [
     url(
@@ -45,5 +49,10 @@ urlpatterns = [
         r'course_sock_fragment$',
         CourseSockFragmentView.as_view(),
         name='openedx.course_experience.course_sock_fragment_view',
+    ),
+    url(
+        r'^dismiss_welcome_message$',
+        dismiss_welcome_message,
+        name='openedx.course_experience.dismiss_welcome_message',
     ),
 ]
