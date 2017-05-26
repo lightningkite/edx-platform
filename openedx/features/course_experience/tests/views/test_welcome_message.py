@@ -52,10 +52,8 @@ class TestWelcomeMessageView(ModuleStoreTestCase):
                 chapter = ItemFactory.create(category='chapter', parent_location=self.course.location)
                 section = ItemFactory.create(category='sequential', parent_location=chapter.location)
                 ItemFactory.create(category='vertical', parent_location=section.location)
-
         self.user = UserFactory(password=TEST_PASSWORD)
         CourseEnrollment.enroll(self.user, self.course.id)
-
         self.client.login(username=self.user.username, password=TEST_PASSWORD)
 
     def tearDown(self):
@@ -95,4 +93,4 @@ class TestWelcomeMessageView(ModuleStoreTestCase):
         self.client.post(dismiss_message_url(self.course))
         response = self.client.get(welcome_message_url(self.course))
         self.assertNotIn('First Update', response)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 204)
