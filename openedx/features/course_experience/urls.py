@@ -7,12 +7,8 @@ from django.conf.urls import url
 from views.course_home import CourseHomeFragmentView, CourseHomeView
 from views.course_outline import CourseOutlineFragmentView
 from views.course_updates import CourseUpdatesFragmentView, CourseUpdatesView
-<<<<<<< HEAD
-from views.welcome_message import WelcomeMessageFragmentView
 from views.course_sock import CourseSockFragmentView
-=======
 from views.welcome_message import WelcomeMessageFragmentView, dismiss_welcome_message
->>>>>>> Add a dismiss button to welcome message.
 
 urlpatterns = [
     url(
