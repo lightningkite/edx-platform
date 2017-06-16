@@ -1,14 +1,14 @@
 /* globals $, loadFixtures */
 
 import { WelcomeMessage } from '../WelcomeMessage';
-import { expectRequest } from 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers';
+import { AjaxHelpers } from 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers';
 
 describe('Welcome Message factory', () => {
   describe('Ensure button click', () => {
     const endpointUrl = '/course/course_id/dismiss_message/';
     beforeEach(() => {
       loadFixtures('course_experience/fixtures/welcome-message-fragment.html');
-      WelcomeMessage(endpointUrl);
+      new WelcomeMessage(endpointUrl);
     });
     it('When button click is made, ajax call is made and message is hidden.', () => {
       const message = document.querySelector('.welcome-message');
