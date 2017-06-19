@@ -12,7 +12,7 @@ describe('Welcome Message factory', () => {
     const endpointUrl = '/course/course_id/dismiss_message/';
     beforeEach(() => {
       loadFixtures('course_experience/fixtures/welcome-message-fragment.html');
-      WelcomeMessage(endpointUrl);
+      new WelcomeMessage(endpointUrl);  // eslint-disable-line no-new
     });
     it('When button click is made, ajax call is made and message is hidden.', () => {
       const message = document.querySelector('.welcome-message');
