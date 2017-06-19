@@ -1,11 +1,11 @@
 /* globals $, loadFixtures */
 
-import { WelcomeMessage } from '../WelcomeMessage';
 import {
   expectRequest,
   requests as mockRequests,
-  respondWithJson
+  respondWithJson,
 } from 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers';
+import { WelcomeMessage } from '../WelcomeMessage';
 
 describe('Welcome Message factory', () => {
   describe('Ensure button click', () => {
