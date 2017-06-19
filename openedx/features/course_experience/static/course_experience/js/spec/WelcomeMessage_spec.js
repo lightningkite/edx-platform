@@ -1,7 +1,11 @@
 /* globals $, loadFixtures */
 
-import { AjaxHelpers } from 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers';
 import { WelcomeMessage } from '../WelcomeMessage';
+import {
+  expectRequest,
+  requests as mockRequests,
+  respondWithJson
+} from 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers';
 
 describe('Welcome Message factory', () => {
   describe('Ensure button click', () => {
@@ -12,14 +16,14 @@ describe('Welcome Message factory', () => {
     });
     it('When button click is made, ajax call is made and message is hidden.', () => {
       const message = document.querySelector('.welcome-message');
+      const requests = mockRequests(this);
       document.querySelector('.dismiss-message button').dispatchEvent(new Event('click'));
-      const requests = AjaxHelpers.requests(this);
-      AjaxHelpers.expectRequest(
+      expectRequest(
         requests,
         'POST',
         endpointUrl,
       );
-      AjaxHelpers.respondWithJson(requests);
+      respondWithJson(requests);
       expect(message.innerHtml).toBe('');
     });
   });

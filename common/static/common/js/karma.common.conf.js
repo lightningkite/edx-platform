@@ -225,7 +225,8 @@ function getBaseConfig(config, useRequireJs) {
             'common/static/common/js/jasmine_stack_trace.js',
             'node_modules/karma-jasmine/lib/boot.js',
             'node_modules/karma-jasmine/lib/adapter.js',
-            'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
+            'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+            'node_modules/sinon/lib/sinon.js'
         ];
 
         if (useRequireJs) {
