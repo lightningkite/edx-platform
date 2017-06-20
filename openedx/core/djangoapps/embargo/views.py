@@ -2,10 +2,36 @@
 
 from django.http import Http404
 from django.views.generic.base import View
+from edx_rest_framework_extensions.authentication import JwtAuthentication
+from rest_framework import permissions
+from rest_framework.views import APIView
 
 from edxmako.shortcuts import render_to_response
 
 from . import messages
+from .api import check_course_access
+from .permissions import CanCallCheckCourseAccessAPI
+
+
+class CheckCourseAccessView(APIView):
+    authentication_classes = (JwtAuthentication, )
+    permission_classes = (permissions.IsAuthenticated, CanCallCheckCourseAccessAPI)
+
+    def post(self, request):
+        """
+        POST /embargo/api/v1/course_access/
+
+        Checks if the user with his ip address has access to the given course.
+        Expects to receive list of courses, user and user ip address.
+        """
+        courses = request.POST.get('courses', [])
+        user = request.POST.get('user')
+        user_ip_address = request.POST.get('ip_address')
+
+        for course in courses:
+            if not check_course_access(course, user, user_ip_address):
+                return False
+        return True
 
 
 class CourseAccessMessageView(View):
