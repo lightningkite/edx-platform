@@ -18,16 +18,25 @@ from .permissions import CanCallCheckCourseAccessAPI
 class CheckCourseAccessView(APIView):
     permission_classes = (permissions.IsAuthenticated, CanCallCheckCourseAccessAPI)
 
-    def post(self, request):
+    def get(self, request, course_ids=[], user=None, ip_address=None):
         """
-        POST /api/embargo/v1/course_access/
+        GET /api/embargo/v1/course_access/
 
-        Checks if the user with his ip address has access to the given course.
-        Expects to receive list of course ids, user and user ip address.
+        Arguments:
+            request (HttpRequest)
+
+        Keyword Arguments:
+            course_ids (list): List of course keys strings.
+            user (User): The user that requires course access.
+            ip_address (str): The IP address of the user requiring access.
+
+        Return:
+            Response: True or False depending on the check.
+
         """
-        course_ids = request.POST.getlist('course_ids', [])
-        user = request.POST.get('user')
-        user_ip_address = request.POST.get('ip_address')
+        course_ids = request.GET.getlist('course_ids', [])
+        user = request.GET.get('user')
+        user_ip_address = request.GET.get('ip_address')
 
         for course_id in course_ids:
             if not check_course_access(CourseKey.from_string(course_id), user, user_ip_address):

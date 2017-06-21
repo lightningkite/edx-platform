@@ -95,6 +95,7 @@ class CourseAccessMessageViewTest(CacheIsolationTestCase, UrlResetMixin):
         )
 
 
+@skip_unless_lms
 @mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
 class CheckCourseAccessViewTest(ModuleStoreTestCase):
     """ Tests the course access check endpoint. """
@@ -116,7 +117,7 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
         }
 
     def test_course_access_endpoint_with_unrestricted_course(self):
-        response = self.client.post(self.URL, data=self.request_data)
+        response = self.client.get(self.URL, data=self.request_data)
         self.assertEqual(response.data, True)
 
     def test_course_access_endpoint_with_restricted_course(self):
@@ -125,5 +126,5 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
         # Appear to make a request from an IP in the blocked country
         with mock.patch.object(pygeoip.GeoIP, 'country_code_by_addr') as mock_ip:
             mock_ip.return_value = 'US'
-            response = self.client.post(self.URL, data=self.request_data)
+            response = self.client.get(self.URL, data=self.request_data)
         self.assertEqual(response.data, False)
