@@ -15,7 +15,7 @@ from .api import check_course_access
 
 
 class CheckCourseAccessView(APIView):
-    permission_classes = (permissions.IsAuthenticated, permisions.IsAdminUser)
+    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser)
 
     def get(self, request):
         """
