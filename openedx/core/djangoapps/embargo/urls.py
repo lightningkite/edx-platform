@@ -2,7 +2,7 @@
 
 from django.conf.urls import patterns, url
 
-from .views import CheckCourseAccessView, CourseAccessMessageView
+from .views import CourseAccessMessageView
 
 urlpatterns = patterns(
     'openedx.core.djangoapps.embargo.views',
@@ -11,5 +11,4 @@ urlpatterns = patterns(
         CourseAccessMessageView.as_view(),
         name='embargo_blocked_message',
     ),
-    url(r'^api/v1/course_access/$', CheckCourseAccessView.as_view(), name='check_course_access'),
 )

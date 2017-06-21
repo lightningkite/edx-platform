@@ -1,14 +1,22 @@
 """Tests for embargo app views. """
 
-from mock import patch
+import ddt
+import json
+import mock
+import pygeoip
+
 from django.core.urlresolvers import reverse
 from django.conf import settings
-import ddt
+from mock import patch
 
-from util.testing import UrlResetMixin
+from .factories import CountryFactory, CountryAccessRuleFactory, RestrictedCourseFactory
 from .. import messages
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase, skip_unless_lms
 from openedx.core.djangoapps.theming.tests.test_util import with_comprehensive_theme
+from student.tests.factories import ContentTypeFactory, PermissionFactory, UserFactory
+from util.testing import UrlResetMixin
+from xmodule.modulestore.tests.factories import CourseFactory
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 
 @skip_unless_lms
@@ -85,3 +93,37 @@ class CourseAccessMessageViewTest(CacheIsolationTestCase, UrlResetMixin):
                 actual=response.status_code
             )
         )
+
+
+@mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
+class CheckCourseAccessViewTest(ModuleStoreTestCase):
+    """ Tests the course access check endpoint. """
+    URL = reverse('check_course_access')
+
+    def setUp(self):
+        super(CheckCourseAccessViewTest, self).setUp()
+        permission = PermissionFactory(
+            codename='can_call_check_course_access_api',
+            content_type=ContentTypeFactory(app_label='student',)
+        )
+        user, password = self.create_non_staff_user()
+        user.user_permissions.add(permission)
+        self.client.login(username=user.username, password=password)
+        self.course_id = str(CourseFactory().id)
+        self.request_data = {
+            'course_ids': [self.course_id],
+            'ip_address': '0.0.0.0'
+        }
+
+    def test_course_access_endpoint_with_unrestricted_course(self):
+        response = self.client.post(self.URL, data=self.request_data)
+        self.assertEqual(response.data, True)
+
+    def test_course_access_endpoint_with_restricted_course(self):
+        CountryAccessRuleFactory(restricted_course=RestrictedCourseFactory(course_key=self.course_id))
+
+        # Appear to make a request from an IP in the blocked country
+        with mock.patch.object(pygeoip.GeoIP, 'country_code_by_addr') as mock_ip:
+            mock_ip.return_value = 'US'
+            response = self.client.post(self.URL, data=self.request_data)
+        self.assertEqual(response.data, False)
