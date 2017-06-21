@@ -12,11 +12,10 @@ from edxmako.shortcuts import render_to_response
 
 from . import messages
 from .api import check_course_access
-from .permissions import CanCallCheckCourseAccessAPI
 
 
 class CheckCourseAccessView(APIView):
-    permission_classes = (permissions.IsAuthenticated, CanCallCheckCourseAccessAPI)
+    permission_classes = (permissions.IsAuthenticated, permisions.IsAdminUser)
 
     def get(self, request, course_ids=[], user=None, ip_address=None):
         """

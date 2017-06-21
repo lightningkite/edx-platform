@@ -103,12 +103,7 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
 
     def setUp(self):
         super(CheckCourseAccessViewTest, self).setUp()
-        permission = PermissionFactory(
-            codename='can_call_check_course_access_api',
-            content_type=ContentTypeFactory(app_label='embargo',)
-        )
-        user, password = self.create_non_staff_user()
-        user.user_permissions.add(permission)
+        user, password = self.create_staff_user()
         self.client.login(username=user.username, password=password)
         self.course_id = str(CourseFactory().id)
         self.request_data = {

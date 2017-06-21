@@ -14,7 +14,6 @@ from courseware.views.views import CourseTabView, EnrollStaffView, StaticCourseT
 from django_comment_common.models import ForumsConfig
 from openedx.core.djangoapps.auth_exchange.views import LoginWithAccessTokenView
 from openedx.core.djangoapps.catalog.models import CatalogIntegration
-from openedx.core.djangoapps.embargo.views import CheckCourseAccessView
 from openedx.core.djangoapps.programs.models import ProgramsApiConfig
 from openedx.core.djangoapps.self_paced.models import SelfPacedConfiguration
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
@@ -815,7 +814,7 @@ urlpatterns += (
 if settings.FEATURES.get('EMBARGO'):
     urlpatterns += (
         url(r'^embargo/', include('openedx.core.djangoapps.embargo.urls')),
-        url(r'^api/embargo/v1/course_access/$', CheckCourseAccessView.as_view(), name='check-course-access'),
+        url(r'^api/embargo/', include('openedx.core.djangoapps.embargo.urls')),
     )
 
 # Survey Djangoapp

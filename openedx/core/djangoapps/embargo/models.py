@@ -39,8 +39,6 @@ class EmbargoedCourse(models.Model):
 
     Deprecated by `RestrictedCourse`
     """
-    class Meta(object):
-        permissions = (("can_call_check_course_access_api", "Can access CheckCourseAccessView"))
 
     objects = NoneToEmptyManager()
 
