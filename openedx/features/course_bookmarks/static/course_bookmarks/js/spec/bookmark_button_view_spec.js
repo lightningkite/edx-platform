@@ -37,14 +37,15 @@ define([
             };
 
             verifyBookmarkButtonState = function(view, bookmarked) {
+                var el = $(view);
                 if (bookmarked) {
-                    expect(view.$el).toHaveAttr('aria-pressed', 'true');
-                    expect(view.$el).toHaveClass('bookmarked');
+                    expect(el).toHaveAttr('aria-pressed', 'true');
+                    expect(el).toHaveClass('bookmarked');
                 } else {
-                    expect(view.$el).toHaveAttr('aria-pressed', 'false');
-                    expect(view.$el).not.toHaveClass('bookmarked');
+                    expect(el).toHaveAttr('aria-pressed', 'false');
+                    expect(el).not.toHaveClass('bookmarked');
                 }
-                expect(view.$el.data('bookmarkId')).toBe('bilbo,usage_1');
+                expect($(el).data('bookmarkId')).toBe('bilbo,usage_1');
             };
 
             it('rendered correctly', function() {

@@ -50,7 +50,7 @@
     "pa11y": "4.0.1",
     "pa11y-reporter-json-oldnode": "1.0.0",
     "plato": "1.2.2",
-    "sinon": "^1.17.7",
+    "sinon": "2.3.5",
     "squirejs": "^0.1.0"
   }
 }

@@ -133,7 +133,7 @@ var wpconfig = {
         gettext: 'gettext',
         jquery: 'jQuery',
         logger: 'Logger',
-        sinon: 'sinon',
+        //sinon: 'sinon',
         underscore: '_',
         URI: 'URI'
     },

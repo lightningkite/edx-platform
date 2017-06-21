@@ -15,7 +15,7 @@ describe('Welcome Message factory', () => {
       new WelcomeMessage(endpointUrl);  // eslint-disable-line no-new
     });
     it('When button click is made, ajax call is made and message is hidden.', () => {
-      const message = document.querySelector('.welcome-message');
+      const message = $('.welcome-message');
       const requests = mockRequests(this);
       document.querySelector('.dismiss-message button').dispatchEvent(new Event('click'));
       expectRequest(
@@ -24,7 +24,7 @@ describe('Welcome Message factory', () => {
         endpointUrl,
       );
       respondWithJson(requests);
-      expect(message.innerHtml).toBe('');
+      expect(message.attr('style')).toBe("display: none;");
     });
   });
 });
