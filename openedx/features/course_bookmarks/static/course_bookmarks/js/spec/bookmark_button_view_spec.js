@@ -28,7 +28,7 @@ define([
 
             createBookmarkButtonView = function(isBookmarked) {
                 return new BookmarkButtonView({
-                    el: '.bookmark-button',
+                    el: $('.bookmark-button'),
                     bookmarked: isBookmarked,
                     bookmarkId: 'bilbo,usage_1',
                     usageId: 'usage_1',
@@ -37,15 +37,14 @@ define([
             };
 
             verifyBookmarkButtonState = function(view, bookmarked) {
-                var el = $(view);
                 if (bookmarked) {
-                    expect(el).toHaveAttr('aria-pressed', 'true');
-                    expect(el).toHaveClass('bookmarked');
+                    expect(view.$el).toHaveAttr('aria-pressed', 'true');
+                    expect(view.$el).toHaveClass('bookmarked');
                 } else {
-                    expect(el).toHaveAttr('aria-pressed', 'false');
-                    expect(el).not.toHaveClass('bookmarked');
+                    expect(view.$el).toHaveAttr('aria-pressed', 'false');
+                    expect(view.$el).not.toHaveClass('bookmarked');
                 }
-                expect($(el).data('bookmarkId')).toBe('bilbo,usage_1');
+                expect($(view.$el).data('bookmarkId')).toBe('bilbo,usage_1');
             };
 
             it('rendered correctly', function() {
