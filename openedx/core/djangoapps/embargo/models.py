@@ -39,7 +39,6 @@ class EmbargoedCourse(models.Model):
 
     Deprecated by `RestrictedCourse`
     """
-
     objects = NoneToEmptyManager()
 
     # The course to embargo

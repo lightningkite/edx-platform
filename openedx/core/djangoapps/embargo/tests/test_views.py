@@ -108,11 +108,13 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
         self.course_id = str(CourseFactory().id)
         self.request_data = {
             'course_ids': [self.course_id],
-            'ip_address': '0.0.0.0'
+            'ip_address': '0.0.0.0',
+            'user': user,
         }
 
     def test_course_access_endpoint_with_unrestricted_course(self):
         response = self.client.get(self.URL, data=self.request_data)
+        self.assertEqual(response.code, 200)
         self.assertEqual(response.data, True)
 
     def test_course_access_endpoint_with_restricted_course(self):
@@ -122,4 +124,5 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
         with mock.patch.object(pygeoip.GeoIP, 'country_code_by_addr') as mock_ip:
             mock_ip.return_value = 'US'
             response = self.client.get(self.URL, data=self.request_data)
+        self.assertEqual(response.code, 200)
         self.assertEqual(response.data, False)

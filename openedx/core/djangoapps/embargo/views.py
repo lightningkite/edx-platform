@@ -17,7 +17,7 @@ from .api import check_course_access
 class CheckCourseAccessView(APIView):
     permission_classes = (permissions.IsAuthenticated, permisions.IsAdminUser)
 
-    def get(self, request, course_ids=[], user=None, ip_address=None):
+    def get(self, request):
         """
         GET /api/embargo/v1/course_access/
 

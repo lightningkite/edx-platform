@@ -11,5 +11,5 @@ urlpatterns = patterns(
         CourseAccessMessageView.as_view(),
         name='embargo_blocked_message',
     ),
-    url(r'v1/course_access/$', CheckCourseAccessView.as_view(), name='check-course-access'),
+    url(r'v1/course_access/$', CheckCourseAccessView.as_view(), name='v1_course_access'),
 )

@@ -1,7 +1,8 @@
-from ..models import Country, CountryAccessRule, RestrictedCourse
+import factory
 from factory.django import DjangoModelFactory
 from xmodule.modulestore.tests.factories import CourseFactory
-import factory
+
+from ..models import Country, CountryAccessRule, RestrictedCourse
 
 
 class CountryFactory(DjangoModelFactory):
