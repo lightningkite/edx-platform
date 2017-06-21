@@ -26,6 +26,7 @@ def welcome_message_url(course):
         }
     )
 
+
 def dismiss_message_url(course):
     """
     Returns the URL for the dismiss message endpoint.
