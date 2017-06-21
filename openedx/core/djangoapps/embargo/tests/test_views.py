@@ -99,13 +99,13 @@ class CourseAccessMessageViewTest(CacheIsolationTestCase, UrlResetMixin):
 @mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
 class CheckCourseAccessViewTest(ModuleStoreTestCase):
     """ Tests the course access check endpoint. """
-    URL = reverse('check_course_access')
+    URL = reverse('check-course-access')
 
     def setUp(self):
         super(CheckCourseAccessViewTest, self).setUp()
         permission = PermissionFactory(
             codename='can_call_check_course_access_api',
-            content_type=ContentTypeFactory(app_label='student',)
+            content_type=ContentTypeFactory(app_label='embargo',)
         )
         user, password = self.create_non_staff_user()
         user.user_permissions.add(permission)

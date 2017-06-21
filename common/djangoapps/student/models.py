@@ -233,10 +233,7 @@ class UserProfile(models.Model):
 
     class Meta(object):
         db_table = "auth_userprofile"
-        permissions = (
-            ("can_deactivate_users", "Can deactivate, but NOT delete users"),
-            ("can_call_check_course_access_api", "Can access CheckCourseAccessView"),
-        )
+        permissions = (("can_deactivate_users", "Can deactivate, but NOT delete users"))
 
     # CRITICAL TODO/SECURITY
     # Sanitize all fields.

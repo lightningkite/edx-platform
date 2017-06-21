@@ -13,7 +13,7 @@ class CanCallCheckCourseAccessAPITest(TestCase):
     def test_user_permission_granted(self):
         permission = PermissionFactory(
             codename='can_call_check_course_access_api',
-            content_type=ContentTypeFactory(app_label='student',)
+            content_type=ContentTypeFactory(app_label='embargo',)
         )
         user = UserFactory()
         user.user_permissions.add(permission)

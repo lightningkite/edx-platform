@@ -12,4 +12,4 @@ class CanCallCheckCourseAccessAPI(permissions.BasePermission):
     explicit permission to access the API view.
     """
     def has_permission(self, request, view):
-        return request.user.has_perm('student.can_call_check_course_access_api')
+        return request.user.has_perm('embargo.can_call_check_course_access_api')
