@@ -99,7 +99,7 @@ class CourseAccessMessageViewTest(CacheIsolationTestCase, UrlResetMixin):
 @mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
 class CheckCourseAccessViewTest(ModuleStoreTestCase):
     """ Tests the course access check endpoint. """
-    URL = reverse('check-course-access')
+    URL = reverse('v1_course_access')
 
     def setUp(self):
         super(CheckCourseAccessViewTest, self).setUp()
@@ -114,8 +114,9 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
 
     def test_course_access_endpoint_with_unrestricted_course(self):
         response = self.client.get(self.URL, data=self.request_data)
+        expected_response = {'Access': True}
         self.assertEqual(response.code, 200)
-        self.assertEqual(response.data, True)
+        self.assertEqual(response.data, expected_response)
 
     def test_course_access_endpoint_with_restricted_course(self):
         CountryAccessRuleFactory(restricted_course=RestrictedCourseFactory(course_key=self.course_id))
@@ -124,5 +125,6 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
         with mock.patch.object(pygeoip.GeoIP, 'country_code_by_addr') as mock_ip:
             mock_ip.return_value = 'US'
             response = self.client.get(self.URL, data=self.request_data)
+        expected_response = {'Access': False}            
         self.assertEqual(response.code, 200)
-        self.assertEqual(response.data, False)
+        self.assertEqual(response.data, expected_response)

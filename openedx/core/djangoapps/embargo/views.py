@@ -36,11 +36,16 @@ class CheckCourseAccessView(APIView):
         course_ids = request.GET.getlist('course_ids', [])
         user = request.GET.get('user')
         user_ip_address = request.GET.get('ip_address')
+        access = False
 
-        for course_id in course_ids:
-            if not check_course_access(CourseKey.from_string(course_id), user, user_ip_address):
-                return Response(False)
-        return Response(True)
+        response = {'Access': access}
+
+        if course_ids or user or user_ip_address:
+            for course_id in course_ids:
+                if not check_course_access(CourseKey.from_string(course_id), user, user_ip_address):
+                    access = False
+                    break
+        return Response(response)
 
 
 class CourseAccessMessageView(View):
