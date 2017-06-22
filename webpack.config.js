@@ -53,6 +53,11 @@ var wpconfig = {
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
+            filename: 'commons.js',
+            minChunks: 2
         })
     ],
 
