@@ -11,13 +11,6 @@ define([
             var API_URL = 'bookmarks/api/v1/bookmarks/';
 
             beforeEach(function() {
-                loadFixtures('course_bookmarks/fixtures/bookmark_button.html');
-                TemplateHelpers.installTemplates(
-                    [
-                        'templates/fields/message_banner'
-                    ]
-                );
-
                 jasmine.createSpy('timerCallback');
                 jasmine.clock().install();
             });
@@ -27,8 +20,15 @@ define([
             });
 
             createBookmarkButtonView = function(isBookmarked) {
+                loadFixtures('course_bookmarks/fixtures/bookmark_button.html');
+                TemplateHelpers.installTemplates(
+                    [
+                        'templates/fields/message_banner'
+                    ]
+                );
+
                 return new BookmarkButtonView({
-                    el: $('.bookmark-button'),
+                    el: '.bookmark-button',
                     bookmarked: isBookmarked,
                     bookmarkId: 'bilbo,usage_1',
                     usageId: 'usage_1',
@@ -44,7 +44,7 @@ define([
                     expect(view.$el).toHaveAttr('aria-pressed', 'false');
                     expect(view.$el).not.toHaveClass('bookmarked');
                 }
-                expect($(view.$el).data('bookmarkId')).toBe('bilbo,usage_1');
+                expect(view.$el.data('bookmarkId')).toBe('bilbo,usage_1');
             };
 
             it('rendered correctly', function() {
