@@ -24,11 +24,6 @@ class CheckCourseAccessView(APIView):
         Arguments:
             request (HttpRequest)
 
-        Keyword Arguments:
-            course_ids (list): List of course keys strings.
-            user (User): The user that requires course access.
-            ip_address (str): The IP address of the user requiring access.
-
         Return:
             Response: True or False depending on the check.
 

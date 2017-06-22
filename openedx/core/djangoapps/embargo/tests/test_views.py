@@ -99,7 +99,7 @@ class CourseAccessMessageViewTest(CacheIsolationTestCase, UrlResetMixin):
 @mock.patch.dict(settings.FEATURES, {'EMBARGO': True})
 class CheckCourseAccessViewTest(ModuleStoreTestCase):
     """ Tests the course access check endpoint. """
-    URL = reverse('v1_course_access')
+    URL = reverse('v1_course_access', args=self.request)
 
     def setUp(self):
         super(CheckCourseAccessViewTest, self).setUp()
