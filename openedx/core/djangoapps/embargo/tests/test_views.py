@@ -125,6 +125,6 @@ class CheckCourseAccessViewTest(ModuleStoreTestCase):
         with mock.patch.object(pygeoip.GeoIP, 'country_code_by_addr') as mock_ip:
             mock_ip.return_value = 'US'
             response = self.client.get(self.URL, data=self.request_data)
-        expected_response = {'Access': False}            
+        expected_response = {'Access': False}
         self.assertEqual(response.code, 200)
         self.assertEqual(response.data, expected_response)
